@@ -4,9 +4,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,10 +77,17 @@ public class MainController {
 	public  ResponseEntity<List<Account>> getAccounts() {
 		return new ResponseEntity<List<Account>>( accountService.findAll(), HttpStatus.FOUND);
 	}
-	
+	@PostMapping(value = "/account-add") // Page for adding Account to database
+	public ResponseEntity<Account> addAccount(@RequestBody Account account, BindingResult result) {
+		if(result.hasErrors()) {
+			return null;
+		}
+		accountService.save(account);
+
+		return new ResponseEntity<Account>(account, HttpStatus.OK);
+	}
 	@PutMapping(value = "/account-update")
-	public  boolean updateAccount(@RequestBody Account account) {
-		
+	public  boolean updateAccount(@RequestBody Account account) {		
 			accountService.save(account);
 		return true;
 	}

@@ -49,6 +49,5 @@ public class FoodOrderController {
 		return new ResponseEntity<FoodOrder>(foodOrders, HttpStatus.FOUND);
 	}
 	
-	
-	
+
 }
