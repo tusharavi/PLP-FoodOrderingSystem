@@ -30,7 +30,7 @@ public class Account {
     
     @OneToMany(mappedBy = "account")
 	@JsonIgnore
-    private List<FoodOrder> foods;
+    private List<FoodOrder> foodOrders;
     @OneToOne(mappedBy = "account")
     private User user;
     
@@ -44,11 +44,11 @@ public class Account {
     /**
      * Default constructor
      */
-    public Account(Integer accountId, List<Address> addresses, List<FoodOrder> foods, User user) {
+    public Account(Integer accountId, List<Address> addresses, List<FoodOrder> foodOrders, User user) {
 		super();
 		this.accountId = accountId;
 		this.addresses = addresses;
-		this.foods = foods;
+		this.foodOrders = foodOrders;
 		this.user = user;
 	}
 	public Integer getAccountId() {
@@ -67,12 +67,12 @@ public class Account {
 		this.addresses = addresses;
 	}
 
-	public List<FoodOrder> getFoods() {
-		return foods;
+	public List<FoodOrder> getFoodOrders() {
+		return foodOrders;
 	}
 
-	public void setFoods(List<FoodOrder> foods) {
-		this.foods = foods;
+	public void setFoodOrders(List<FoodOrder> foodOrders) {
+		this.foodOrders = foodOrders;
 	}
 
 	public User getUser() {
