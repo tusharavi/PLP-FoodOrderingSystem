@@ -3,7 +3,6 @@ package com.cg.foodos.dto;
 
 import java.util.*;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +31,7 @@ public class Account {
     @OneToMany(mappedBy = "account")
 	@JsonIgnore
     private List<FoodOrder> foods;
-    @OneToOne
+    @OneToOne(mappedBy = "account")
     private User user;
     
     

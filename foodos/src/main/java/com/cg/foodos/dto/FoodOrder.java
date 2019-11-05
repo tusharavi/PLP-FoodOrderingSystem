@@ -3,12 +3,14 @@ package com.cg.foodos.dto;
 
 import java.util.*;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -27,10 +29,11 @@ public class FoodOrder {
     @Enumerated(EnumType.STRING)
     private EnumOrderStatus enumOrderStatus;
 
-   
+    @Embedded
     private Address address;
 
     @ManyToOne
+    @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
     
     @OneToMany(mappedBy = "foodOrder")
@@ -38,6 +41,7 @@ public class FoodOrder {
     private List<Food> foods;
     
     @ManyToOne
+    @JoinColumn(name = "RESTAURANT_ID")
     private Restaurant restaurant;
     
     /**

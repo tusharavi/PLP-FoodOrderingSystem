@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -23,15 +24,16 @@ public class Food {
     private String foodName;
     
     private Boolean vegetarian;
-    
 
     @Enumerated(EnumType.STRING)
     private EnumFoodType enumFoodType;
     
     @ManyToOne
+    @JoinColumn(name = "ORDER_ID")
     private FoodOrder foodOrder;
     
     @ManyToOne
+    @JoinColumn(name = "RESTAURANT_ID")
     private Restaurant restaurant;
 
     /**

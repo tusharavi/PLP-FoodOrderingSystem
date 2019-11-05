@@ -10,6 +10,5 @@ import com.cg.foodos.dto.FoodOrder;
  */
 @Repository 
 public interface FoodOrderRepository extends JpaRepository<FoodOrder, Integer>{
-//	public List<FoodOrder> findAllByAccountId(Integer accountId);
-//	public List<FoodOrder> findAllByRestaurantId(Integer restaurantId);
+
 }
