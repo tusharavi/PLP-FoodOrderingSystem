@@ -10,4 +10,5 @@ public interface UserService {
 	public void delete(User user);
 	public User findById(Integer userId);
 	public void deleteById(Integer userId);
+	public User findByUsernameAndPassword(String username, String password);
 }

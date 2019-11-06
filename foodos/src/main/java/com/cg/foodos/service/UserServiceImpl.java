@@ -1,5 +1,6 @@
 package com.cg.foodos.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,21 @@ public class UserServiceImpl implements UserService{
 	public void deleteById(Integer userId) {
 		userRepository.deleteById(userId);
 		return;
+	}
+
+	@Override
+	public User findByUsernameAndPassword(String username, String password) {
+		List<User> users = userRepository.findByUsername(username);
+		User user;
+		Iterator<User> iterator = users.iterator();
+		
+		while(iterator.hasNext()) {
+		   user = iterator.next();
+		   if(user.getPassword() == password) {
+			   return user;
+		   }
+		}
+		return null; // In case the user is not found
 	}
 
 }

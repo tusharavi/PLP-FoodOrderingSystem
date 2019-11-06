@@ -38,7 +38,32 @@ public class MainController {
 	@Autowired
 	RestaurantService restaurantService;
 	
+	/*
+	* Author: 
+	* Description: ***********BASIC***********
+	* Created: October 14, 2019
+	* Input: 
+	* Output: 
+	*
+	*/
 	
+	@GetMapping(value = "/sign-in")
+	public  ResponseEntity<User> signIn(@RequestParam("username") String username, @RequestParam("password") String password) {
+		User user = userService.findByUsernameAndPassword(username, password);
+		if(user!=null) {
+			return new ResponseEntity<User>(user, HttpStatus.FOUND);
+		}
+		else {
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PostMapping(value = "/sign-up")
+	public ResponseEntity<User> signUp(@RequestBody User user) {
+		user.setRole("ROLE_CUSTOMER");
+		userService.save(user);
+		return new ResponseEntity<User>(user, HttpStatus.FOUND);
+	}
 	
 	/*
 	* Author: 

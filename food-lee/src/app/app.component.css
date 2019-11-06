@@ -1,7 +1,19 @@
 .navbar {
+  min-height: 40px;
+  height: 40px; 
   justify-content: space-between;
+}
+.sidenav {
+  width: 300px;
+  min-width: 300px;
+  margin-bottom: -5000px; /* any large number will do */
+  padding-bottom: 5000px; 
 }
 
 span {
   padding-right: 1rem;
+}
+
+button {
+  justify-content: space-between;
 }

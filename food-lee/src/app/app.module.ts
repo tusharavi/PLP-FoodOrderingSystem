@@ -5,8 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './_material/material.module';
 import { FormsModule } from '@angular/forms';
+import { UserModule } from './user/user.module';
+import { FoodOrderModule } from './food-order/food-order.module';
+import { AccountModule } from './account/account.module';
+import { RestaurantModule } from './restaurant/restaurant.module';
+import { FoodModule } from './food/food.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +23,12 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    
+    UserModule,
+    FoodOrderModule,
+    AccountModule,
+    RestaurantModule,
+    FoodModule
   ],
   providers: [],
   bootstrap: [AppComponent]
