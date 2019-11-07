@@ -1,15 +1,15 @@
-<p>sign-up works!</p>
-<div>
+<mat-card class="flex-container">
+    <mat-card-subtitle>Sign In</mat-card-subtitle>
     <mat-vertical-stepper [linear]="isLinear" #stepper>
 
         <mat-step [stepControl]="usernameFormGroup" [editable]="isEditable">
             <form [formGroup]="usernameFormGroup">
                 <ng-template matStepLabel>Enter Your username</ng-template>
                 <mat-form-field>
-                    <input matInput placeholder="your username" formControlName="usernameFormControl" [value]="user.username" #username required>
+                    <input matInput placeholder="your username" formControlName="usernameFormControl" [(ngModel)]="user.username" #username required>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperNext color="primary">Next</button>
                 </div>
             </form>
         </mat-step>
@@ -19,44 +19,44 @@
                 <ng-template matStepLabel>Enter Your Password</ng-template>
                 <mat-form-field>
                     <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
-                        [value]="password" formControlName="passwordFormControl" required>
+                    [(ngModel)]="password" formControlName="passwordFormControl" required>
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious color="primary">Back</button>
+                    <button mat-button matStepperNext color="primary">Next</button>
                 </div>
             </form>
         </mat-step>
 
         <mat-step [stepControl]="emailFormGroup" [editable]="isEditable" required>
             <form [formGroup]="emailFormGroup">
-                <ng-template matStepLabel>Enter Your Password</ng-template>
+                <ng-template matStepLabel>Enter Your e-mail Address</ng-template>
                 <mat-form-field class="example-full-width">
-                    <input type="email" matInput placeholder="food-lee@food-lee.com" formControlName="emailFormControl" required>
+                    <input type="email" matInput placeholder="food-lee@food-lee.com" [(ngModel)]="email" formControlName="emailFormControl" required>
                     <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious color="primary">Back</button>
+                    <button mat-button matStepperNext color="primary">Next</button>
                 </div>
             </form>
         </mat-step>
 
         <mat-step [stepControl]="telephoneFormGroup" [editable]="isEditable" required>
             <form [formGroup]="telephoneFormGroup">
-                <ng-template matStepLabel>Enter Your Password</ng-template>
+                <ng-template matStepLabel>Enter Your Phone Number</ng-template>
                 <mat-form-field class="example-full-width">
                     <span matPrefix>+91 &nbsp;</span>
-                    <input type="tel" matInput placeholder="Telephone" formControlName="telephoneFormControl" required>
+                    <input type="tel" matInput placeholder="Telephone" [(ngModel)]="telephone" formControlName="telephoneFormControl" required>
                     <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious color="primary">Back</button>
+                    <button mat-button matStepperNext color="primary">Next</button>
                 </div>
             </form>
         </mat-step>
@@ -71,4 +71,4 @@
         </mat-step>
 
     </mat-vertical-stepper>
-</div>
+</mat-card>

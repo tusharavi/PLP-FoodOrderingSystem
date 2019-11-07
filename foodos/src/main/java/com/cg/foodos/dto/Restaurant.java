@@ -23,7 +23,9 @@ public class Restaurant {
      */
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer restaurantId;
-
+	
+	private String restaurantName;
+	
     @Embedded
     private Address address;
     
@@ -62,6 +64,14 @@ public class Restaurant {
 
 	public List<Food> getFoods() {
 		return foods;
+	}
+
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
 	}
 
 	public void setFoods(List<Food> foods) {

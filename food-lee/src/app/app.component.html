@@ -25,11 +25,11 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
     <mat-nav-list>
-      <a mat-list-item [routerLink]="'/food'"> Food </a>
-      <a mat-list-item [routerLink]="'/restaurant'"> Restaurants </a>
-      <a mat-list-item [routerLink]="'/orders'"> Your Orders </a>
-      <a mat-list-item [routerLink]="'/signin'"> Sign In </a>
-      <a mat-list-item [routerLink]="'/signup'"> Sign Up </a>
+      <a mat-list-item [routerLink]="'/food'" (click)="sidenav.toggle()"> Food </a>
+      <a mat-list-item [routerLink]="'/show-restaurant'" (click)="sidenav.toggle()"> Restaurants </a>
+      <a mat-list-item [routerLink]="'/orders'" (click)="sidenav.toggle()"> Your Orders </a>
+      <a mat-list-item [routerLink]="'/signin'" (click)="sidenav.toggle()"> Sign In </a>
+      <a mat-list-item [routerLink]="'/signup'" (click)="sidenav.toggle()"> Sign Up </a>
       <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
     </mat-nav-list>
   </mat-sidenav>

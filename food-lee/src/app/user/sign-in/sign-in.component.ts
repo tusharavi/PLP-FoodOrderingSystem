@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AuthenticationService } from 'src/app/_service/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,8 +15,11 @@ export class SignInComponent implements OnInit {
 
   username:any;
   password:any;
-  
-  constructor(private _formBuilder: FormBuilder) { }
+  isLinear:boolean = true;
+  isEditable:boolean = true;
+  invalidLogin:boolean = true;
+
+  constructor(private _formBuilder: FormBuilder, private loginservice: AuthenticationService,private router: Router) { }
 
   ngOnInit() {
     this.usernameFormGroup = this._formBuilder.group({
@@ -25,4 +30,12 @@ export class SignInComponent implements OnInit {
     });
   }
 
+  checkLogin() {
+    if (this.loginservice.authenticate(this.username, this.password)
+    ) {
+      this.router.navigate([''])
+      this.invalidLogin = false
+    } else
+      this.invalidLogin = true
+  }
 }

@@ -1,0 +1,17 @@
+<mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile
+        *ngFor="let restaurant of restaurnats"
+        colspan="2"
+        rowspan="2"
+        > 
+
+        <button mat-button (click)="onSelect(restaurant)" >
+            <mat-card>
+                <mat-card-title class="flex-container">
+                    {{restaurant.restaurantName}}
+                </mat-card-title>
+            </mat-card>
+        </button>
+        
+    </mat-grid-tile>
+</mat-grid-list>

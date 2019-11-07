@@ -1,5 +1,7 @@
 package com.cg.foodos.dto;
 
+import java.math.BigInteger;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +30,7 @@ public class User {
     private String email;
 
  
-    private Integer mobileNumber;
+    private BigInteger telephone;
 
 
     private String role;
@@ -47,12 +49,12 @@ public class User {
     /**
      * Default constructor
      */
-    public User(String username, String password, String email, Integer mobileNumber, String role, Account account) {
+    public User(String username, String password, String email, BigInteger telephone, String role, Account account) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.mobileNumber = mobileNumber;
+		this.telephone = telephone;
 		this.role = role;
 		this.account = account;
 	}
@@ -82,12 +84,12 @@ public class User {
 		this.email = email;
 	}
 
-	public Integer getMobileNumber() {
-		return mobileNumber;
+	public BigInteger getTelephone() {
+		return telephone;
 	}
 
-	public void setMobileNumber(Integer mobileNumber) {
-		this.mobileNumber = mobileNumber;
+	public void setTelephone(BigInteger telephone) {
+		this.telephone = telephone;
 	}
 
 	public String getRole() {
@@ -110,8 +112,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", email=" + email + ", mobileNumber="
-				+ mobileNumber + ", role=" + role + ", account=" + account + "]";
+		return "User [username=" + username + ", password=" + password + ", email=" + email + ", telephone="
+				+ telephone + ", role=" + role + ", account=" + account + "]";
 	}
 
 	@Override

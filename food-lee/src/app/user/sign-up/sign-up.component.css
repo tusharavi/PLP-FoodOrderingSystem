@@ -1,0 +1,8 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+    max-width: 400px;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+  }

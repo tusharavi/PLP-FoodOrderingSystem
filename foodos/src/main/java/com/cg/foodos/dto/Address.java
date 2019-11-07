@@ -1,6 +1,8 @@
 package com.cg.foodos.dto;
 
 
+import java.math.BigInteger;
+
 import javax.persistence.Embeddable;
 
 /**
@@ -13,7 +15,7 @@ public class Address {
      */
     private String name;
 
-    private Integer mobileNumber;
+    private BigInteger telephone;
 
     private String addressLineOne;
 
@@ -31,11 +33,11 @@ public class Address {
     /**
      * Default constructor
      */
-	public Address(String name, Integer mobileNumber, String addressLineOne, Integer pinCode,
+	public Address(String name, BigInteger telephone, String addressLineOne, Integer pinCode,
 			String state) {
 		super();
 		this.name = name;
-		this.mobileNumber = mobileNumber;
+		this.telephone = telephone;
 		this.addressLineOne = addressLineOne;
 		this.pinCode = pinCode;
 		this.state = state;
@@ -49,12 +51,12 @@ public class Address {
 		this.name = name;
 	}
 
-	public Integer getMobileNumber() {
-		return mobileNumber;
+	public BigInteger getTelephone() {
+		return telephone;
 	}
 
-	public void setMobileNumber(Integer mobileNumber) {
-		this.mobileNumber = mobileNumber;
+	public void setTelephone(BigInteger telephone) {
+		this.telephone = telephone;
 	}
 
 	public String getAddressLineOne() {
@@ -83,7 +85,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "Address [name=" + name + ", mobileNumber=" + mobileNumber
+		return "Address [name=" + name + ", telephone=" + telephone
 				+ ", addressLineOne=" + addressLineOne + ", pinCode=" + pinCode + ", state=" + state + "]";
 	}
 
@@ -92,7 +94,7 @@ public class Address {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((addressLineOne == null) ? 0 : addressLineOne.hashCode());
-		result = prime * result + ((mobileNumber == null) ? 0 : mobileNumber.hashCode());
+		result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((pinCode == null) ? 0 : pinCode.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
@@ -113,10 +115,10 @@ public class Address {
 				return false;
 		} else if (!addressLineOne.equals(other.addressLineOne))
 			return false;
-		if (mobileNumber == null) {
-			if (other.mobileNumber != null)
+		if (telephone == null) {
+			if (other.telephone != null)
 				return false;
-		} else if (!mobileNumber.equals(other.mobileNumber))
+		} else if (!telephone.equals(other.telephone))
 			return false;
 		if (name == null) {
 			if (other.name != null)
