@@ -17,7 +17,6 @@ export class LogOutComponent implements OnInit {
 
 }
 
-
 export class LogoutComponent implements OnInit {
 
   constructor(

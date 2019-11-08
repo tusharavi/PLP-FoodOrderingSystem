@@ -5,8 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,18 +39,38 @@ public class FoodOrderController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping(value = "/user-orders")
-	public  ResponseEntity<List<FoodOrder>> getUserOrders(@RequestParam Integer accountId) {
+	@PostMapping(value = "/add")
+	public  ResponseEntity<FoodOrder> placeOrder(@RequestBody FoodOrder foodOrder, 
+			@RequestParam Integer accountId,
+			BindingResult result) {
+		if(result.hasErrors()) {
+			return new ResponseEntity<FoodOrder>(HttpStatus.NOT_ACCEPTABLE);
+		}
+		foodOrderService.save(foodOrder);
+		return new ResponseEntity<FoodOrder>(foodOrder, HttpStatus.ACCEPTED);
+	}
+	@DeleteMapping(value = "/delete/{orderId}")
+	public  ResponseEntity<List<FoodOrder>> updateOrder(@PathVariable Integer accountId) {
 		List<FoodOrder> foodOrders = accountService.findById(accountId).getFoodOrders();
 		return new ResponseEntity<List<FoodOrder>>(foodOrders, HttpStatus.FOUND);
 	}
-	@GetMapping(value = "/restaurant-orders")
-	public  ResponseEntity<List<FoodOrder>> getRestaurantOrders(@RequestParam Integer restaurantId) {
+	
+	
+	
+	
+	
+	@GetMapping(value = "/user-order/{userId}")
+	public  ResponseEntity<List<FoodOrder>> cancelOrder(@PathVariable Integer accountId) {
+		List<FoodOrder> foodOrders = accountService.findById(accountId).getFoodOrders();
+		return new ResponseEntity<List<FoodOrder>>(foodOrders, HttpStatus.FOUND);
+	}
+	@GetMapping(value = "/restaurant-order/{restaurantId}")
+	public  ResponseEntity<List<FoodOrder>> getRestaurantOrders(@PathVariable Integer restaurantId) {
 		List<FoodOrder> foodOrders = restaurantService.findById(restaurantId).getFoodOrders();
 		return new ResponseEntity<List<FoodOrder>>(foodOrders, HttpStatus.FOUND);
 	}
-	@GetMapping(value = "/food-order")
-	public  ResponseEntity<FoodOrder> getFoodOrders(@RequestParam Integer foodId) {
+	@GetMapping(value = "/food-order/{foodId}")
+	public  ResponseEntity<FoodOrder> getFoodOrders(@PathVariable Integer foodId) {
 		FoodOrder foodOrders = foodService.findById(foodId).getFoodOrder();
 		return new ResponseEntity<FoodOrder>(foodOrders, HttpStatus.FOUND);
 	}
