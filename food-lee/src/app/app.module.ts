@@ -17,7 +17,7 @@ import { LogOutComponent } from './user/log-out/log-out.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LogOutComponent
+
   ],
   imports: [
     BrowserModule,
