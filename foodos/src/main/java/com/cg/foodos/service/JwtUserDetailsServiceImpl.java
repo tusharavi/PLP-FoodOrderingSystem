@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class JwtUserDetailsServiceImpl implements UserDetailsService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(JwtUserDetailsServiceImpl.class);
 	
 	@Autowired
 	UserRepository userRepository;

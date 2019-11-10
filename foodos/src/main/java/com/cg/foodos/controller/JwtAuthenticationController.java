@@ -1,7 +1,6 @@
 package com.cg.foodos.controller;
 
-import java.util.Objects;
-
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,21 +8,20 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.foodos.configuration.JwtTokenUtil;
-import com.cg.foodos.dto.JwtRequest;
-import com.cg.foodos.dto.JwtResponse;
+import com.cg.foodos.model.*;
+import com.cg.foodos.service.JwtUserDetailsServiceImpl;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class JwtAuthenticationController {
-
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -31,32 +29,41 @@ public class JwtAuthenticationController {
 	private JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
-	private UserDetailsService jwtInMemoryUserDetailsService;
+	private JwtUserDetailsServiceImpl userDetailsService;
 
 	@PostMapping(value = "/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
-			throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+		
+		System.out.println(authenticationRequest.getUsername());
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-		final UserDetails userDetails = jwtInMemoryUserDetailsService
+		
+		
+        
+		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
-
+		
+		System.out.println(userDetails.getPassword());
 		final String token = jwtTokenUtil.generateToken(userDetails);
+		System.out.println("done here");
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
-		Objects.requireNonNull(username);
-		Objects.requireNonNull(password);
-
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			System.out.println("inside authenticate");
+			UsernamePasswordAuthenticationToken tok=  new UsernamePasswordAuthenticationToken(username, password,new ArrayList<>());
+
+			authenticationManager.authenticate(tok);
+			System.out.println("done");
 		} catch (DisabledException e) {
+			System.out.println("disabled");
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
+			System.out.println("bad");
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
+
 }
