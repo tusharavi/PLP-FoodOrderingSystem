@@ -7,50 +7,66 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cg.foodos.dto.JwtUserDetailsImpl;
 import com.cg.foodos.dto.User;
 import com.cg.foodos.repository.UserRepository;
+
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 @Service
+@SuppressWarnings("unused")
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JwtUserDetailsServiceImpl.class);
 	
-	@Autowired
-	UserRepository userRepository;
 	@Autowired 
 	private PasswordEncoder bycryptEncoder; 
+	@Autowired
+	UserService service = new UserServiceImpl();
+	@Autowired
+	private JwtUserDetailsImpl userDetails;
+
 	
-	/*	
-	 *  Author: Tushar
-	 *  Description: Retrieves a user and maps it to a UserDetails object.
-	 *  Input: User name string.
-	 *  Output: UserDetails object.
-	 *  Created Date: 11/10/2019
-	 *  Last Modified: - 
-	 */
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user=userRepository.findByUsername(username).get(0);
-		logger.info("Finding user with username: "+username);
-		if(user==null) {
-			throw new UsernameNotFoundException("User not found: "+username);
+		
+		Optional<User> user;
+		try {
+			System.out.println(username);
+			user = Optional.of(service.findByUsername(username));
+			System.out.println(user.get().getTelephone());
+			user.orElseThrow(() -> new UsernameNotFoundException("Not Found: "+username));
+			return user.map(JwtUserDetailsImpl::new).get();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		logger.info("Found user with username: "+username);
-		logger.info("Mapping User to UserDetails and returning.");
-		return (UserDetails) user;
-	}
 	
+		return null;
+
+	}
+
+		
 	public User save(User user) {
 		User newUser = new User();
 		newUser.setUsername(user.getUsername());
+		newUser.setRoles("ROLE_CUSTOMER");
+		newUser.setEmail(user.getEmail());
+		newUser.setTelephone(user.getTelephone());
 		newUser.setPassword(bycryptEncoder.encode(user.getPassword()));
-		userRepository.save(newUser);
-		return newUser;
-		
+		System.out.println(user.toString());
+		return userRepository.save(newUser);
 	}
+
+
 
 }

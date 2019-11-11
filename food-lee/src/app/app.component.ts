@@ -12,5 +12,4 @@ export class AppComponent {
   title = 'food-lee';
   opened = true;
   themeColor ='accent';
-  image:'src\assets\img\logo.png';
 }

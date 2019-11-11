@@ -1,12 +1,16 @@
 package com.cg.foodos.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.foodos.dto.EnumOrderStatus;
 import com.cg.foodos.dto.FoodOrder;
 import com.cg.foodos.repository.FoodOrderRepository;
 
 @Service("foodOrderService")
+@Transactional
 public class FoodOrderServiceImpl implements FoodOrderService{
 	@Autowired
 	FoodOrderRepository foodOrderRepository;
@@ -15,17 +19,18 @@ public class FoodOrderServiceImpl implements FoodOrderService{
 	/**
      * @param foodOrder
      */
-    public void save(FoodOrder foodOrder) {
-        
+    public boolean save(FoodOrder foodOrder, Integer foodId, Integer accountId) {
+        foodOrderRepository.save(foodOrder);
+        return true;
     }
 
     /**
      * @param orderId 
      * @return
      */
-    public FoodOrder cancelOrder(Integer orderId) {
-        
-        return null;
+    public boolean cancelOrder(Integer orderId) {
+        foodOrderRepository.getOne(orderId).setEnumOrderStatus(EnumOrderStatus.CANCELLED);;
+        return true;
     }
 
     /**
@@ -34,25 +39,7 @@ public class FoodOrderServiceImpl implements FoodOrderService{
      */
     public FoodOrder findById(Integer orderId) {
         
-        return null;
+        return foodOrderRepository.getOne(orderId);
     }
-
-//    /**
-//     * @param accountid 
-//     * @return
-//     */
-//    public List<FoodOrder> findAllByAccountId(Integer accountid) {
-//        
-//        return null;
-//    }
-//
-//    /**
-//     * @param restaurantId 
-//     * @return
-//     */
-//    public List<FoodOrder> findAllByRestaurantId(Integer restaurantId) {
-//        
-//        return null;
-//    }
 
 }

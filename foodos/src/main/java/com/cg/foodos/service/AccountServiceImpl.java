@@ -1,6 +1,9 @@
 package com.cg.foodos.service;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +11,7 @@ import com.cg.foodos.dto.Account;
 import com.cg.foodos.repository.AccountRepository;
 
 @Service("accountService")
+@Transactional
 public class AccountServiceImpl implements AccountService{
 	
 	@Autowired

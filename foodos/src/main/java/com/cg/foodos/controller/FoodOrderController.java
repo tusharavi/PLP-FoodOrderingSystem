@@ -41,11 +41,12 @@ public class FoodOrderController {
 	@PostMapping(value = "/add")
 	public  ResponseEntity<FoodOrder> placeOrder(@RequestBody FoodOrder foodOrder, 
 			@RequestParam Integer accountId,
+			@RequestParam Integer foodId,
 			BindingResult result) {
 		if(result.hasErrors()) {
 			return new ResponseEntity<FoodOrder>(HttpStatus.NOT_ACCEPTABLE);
 		}
-		foodOrderService.save(foodOrder);
+		foodOrderService.save(foodOrder, accountId, foodId);
 		return new ResponseEntity<FoodOrder>(foodOrder, HttpStatus.ACCEPTED);
 	}
 	@DeleteMapping(value = "/delete/{orderId}")
@@ -60,13 +61,13 @@ public class FoodOrderController {
 	}
 	@GetMapping(value = "/restaurant-order/{restaurantId}")
 	public  ResponseEntity<List<FoodOrder>> getRestaurantOrders(@PathVariable Integer restaurantId) {
-		List<FoodOrder> foodOrders = restaurantService.findById(restaurantId).getFoodOrders();
+		List<FoodOrder> foodOrders = restaurantService.findById(restaurantId).get().getFoodOrders();
 		return new ResponseEntity<List<FoodOrder>>(foodOrders, HttpStatus.FOUND);
 	}
 	@GetMapping(value = "/food-order/{foodId}")
-	public  ResponseEntity<FoodOrder> getFoodOrders(@PathVariable Integer foodId) {
-		FoodOrder foodOrders = foodService.findById(foodId).getFoodOrder();
-		return new ResponseEntity<FoodOrder>(foodOrders, HttpStatus.FOUND);
+	public  ResponseEntity<List<FoodOrder>> getFoodOrders(@PathVariable Integer foodId) {
+		List<FoodOrder> foodOrders = foodService.findById(foodId).get().getFoodOrders();
+		return new ResponseEntity<List<FoodOrder>>(foodOrders, HttpStatus.FOUND);
 	}
 	
 

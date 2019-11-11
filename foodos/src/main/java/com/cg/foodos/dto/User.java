@@ -2,6 +2,7 @@ package com.cg.foodos.dto;
 
 import java.math.BigInteger;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,9 +20,11 @@ public class User {
      * 
      */
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
 	private Integer userId;
 	
-    private String username;
+
+	private String username;
 
 
     private String password;
@@ -33,7 +36,7 @@ public class User {
     private BigInteger telephone;
 
 
-    private String role;
+    private String roles;
 
     @OneToOne
     @JoinColumn(name = "ACCOUNT_ID")
@@ -49,16 +52,23 @@ public class User {
     /**
      * Default constructor
      */
-    public User(String username, String password, String email, BigInteger telephone, String role, Account account) {
+    public User(String username, String password, String email, BigInteger telephone, String roles, Account account) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.telephone = telephone;
-		this.role = role;
+		this.roles = roles;
 		this.account = account;
 	}
     
+    public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
     
 	public String getUsername() {
 		return username;
@@ -92,12 +102,12 @@ public class User {
 		this.telephone = telephone;
 	}
 
-	public String getRole() {
-		return role;
+	public String getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(String role) {
+		this.roles = role;
 	}
 
 	public Account getAccount() {
@@ -113,7 +123,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", email=" + email + ", telephone="
-				+ telephone + ", role=" + role + ", account=" + account + "]";
+				+ telephone + ", roles=" + roles + ", account=" + account + "]";
 	}
 
 	@Override

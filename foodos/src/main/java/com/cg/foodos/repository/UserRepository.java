@@ -12,6 +12,5 @@ import com.cg.foodos.dto.User;
  */
 @Repository 
 public interface UserRepository extends JpaRepository<User, Integer>{
-
 	public List<User> findByUsername(String username);
 }

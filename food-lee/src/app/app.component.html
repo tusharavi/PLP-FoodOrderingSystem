@@ -5,25 +5,26 @@
     </button>
   </div>
   <div>
-    <button mat-button [matMenuTriggerFor]="menuTRF"><img [attr.src]="image" /></button>
+    <button mat-button><mat-icon ></mat-icon>food-lee</button>
   </div>
   <div>
     <button mat-button [matMenuTriggerFor]="menuTRF">
       {{username}}
       <mat-icon>account_circle</mat-icon>
     </button>
-
+<!-- The template reference variable that is being used by two buttons above-->
     <mat-menu #menuTRF="matMenu">
       <button mat-menu-item>Profile</button>
       <button mat-menu-item>Previous Orders</button>
       <button mat-menu-item>Wish List</button>
+      <button mat-menu-item>Logout</button>
     </mat-menu>
   </div>
 </mat-toolbar>
 
 <!-- Mat Sidenav being operated from outside -->
 <mat-sidenav-container>
-  <mat-sidenav #sidenav>
+  <mat-sidenav #sidenav class="bgimg">
     <mat-nav-list>
       <a mat-list-item [routerLink]="'/food'" (click)="sidenav.toggle()"> Food </a>
       <a mat-list-item [routerLink]="'/show-restaurant'" (click)="sidenav.toggle()"> Restaurants </a>
@@ -35,7 +36,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div style="height: 88vh;">
-      <router-outlet></router-outlet>
+      <router-outlet class="ro-bg-img"></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

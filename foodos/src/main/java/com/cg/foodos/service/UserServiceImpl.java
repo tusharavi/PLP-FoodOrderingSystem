@@ -3,6 +3,8 @@ package com.cg.foodos.service;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.cg.foodos.dto.User;
 import com.cg.foodos.repository.UserRepository;
 
 @Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
@@ -17,27 +20,26 @@ public class UserServiceImpl implements UserService{
 	
 	
 	@Override
-	public User save(User user) {
-		
-		return null;
+	public List<User> save(User user) {
+		userRepository.save(user);
+		System.out.println("user"+user.getUsername());
+		return userRepository.findByUsername(user.getUsername());
 	}
 
 	@Override
 	public List<User> findAll() {
 		
-		return null;
+		return userRepository.findAll();
 	}
 
 	@Override
 	public void delete(User user) {
-		
-		
+		userRepository.delete(user);
 	}
 
 	@Override
 	public User findById(Integer userId) {
-		
-		return null;
+		return userRepository.getOne(userId);
 	}
 
 	@Override
@@ -47,18 +49,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User findByUsernameAndPassword(String username, String password) {
+	public User findByUsername(String username) {
 		List<User> users = userRepository.findByUsername(username);
-		User user;
-		Iterator<User> iterator = users.iterator();
-		
-		while(iterator.hasNext()) {
-		   user = iterator.next();
-		   if(user.getPassword() == password) {
-			   return user;
-		   }
-		}
-		return null; // In case the user is not found
+		return users.get(0); // In case the user is not found
 	}
 
 }

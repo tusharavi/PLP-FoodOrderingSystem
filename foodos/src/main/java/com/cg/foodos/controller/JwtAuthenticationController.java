@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.foodos.configuration.JwtTokenUtil;
+import com.cg.foodos.dto.User;
 import com.cg.foodos.model.*;
 import com.cg.foodos.service.JwtUserDetailsServiceImpl;
 
@@ -30,16 +31,21 @@ public class JwtAuthenticationController {
 
 	@Autowired
 	private JwtUserDetailsServiceImpl userDetailsService;
-
-	@PostMapping(value = "/authenticate")
+	
+	@PostMapping(value = "/signup")
+	public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
+		user.setRoles("ROLE_CUSTOMER");
+		System.out.println("here");
+		return ResponseEntity.ok(userDetailsService.save(user));
+	}
+	@PostMapping(value = "/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		
 		System.out.println(authenticationRequest.getUsername());
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		
-		
-        
+		System.out.println("token generation");
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 		
@@ -49,12 +55,12 @@ public class JwtAuthenticationController {
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
-
+	
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			System.out.println("inside authenticate");
 			UsernamePasswordAuthenticationToken tok=  new UsernamePasswordAuthenticationToken(username, password,new ArrayList<>());
-
+			System.out.println(tok);
 			authenticationManager.authenticate(tok);
 			System.out.println("done");
 		} catch (DisabledException e) {

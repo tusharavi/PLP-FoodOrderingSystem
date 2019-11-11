@@ -1,6 +1,9 @@
 package com.cg.foodos.dto;
 
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
@@ -28,9 +32,8 @@ public class Food {
     @Enumerated(EnumType.STRING)
     private EnumFoodType enumFoodType;
     
-    @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
-    private FoodOrder foodOrder;
+    @ManyToMany(mappedBy = "foods", cascade = CascadeType.PERSIST)
+    private List<FoodOrder> foodOrders;
     
     @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
@@ -45,11 +48,11 @@ public class Food {
      * Default constructor
      */
 
-	public Food(Integer foodId, String foodName, FoodOrder foodOrder, EnumFoodType enumFoodType, Boolean vegetarian) {
+	public Food(Integer foodId, String foodName, List<FoodOrder> foodOrders, EnumFoodType enumFoodType, Boolean vegetarian) {
 		super();
 		this.foodId = foodId;
 		this.foodName = foodName;
-		this.foodOrder = foodOrder;
+		this.foodOrders = foodOrders;
 		this.enumFoodType = enumFoodType;
 		this.vegetarian = vegetarian;
 	}
@@ -65,11 +68,11 @@ public class Food {
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
 	}
-	public FoodOrder getFoodOrder() {
-		return foodOrder;
+	public List<FoodOrder> getFoodOrders() {
+		return foodOrders;
 	}
-	public void setFoodOrder(FoodOrder foodOrder) {
-		this.foodOrder = foodOrder;
+	public void setFoodOrders(List<FoodOrder> foodOrders) {
+		this.foodOrders = foodOrders;
 	}
 	public EnumFoodType getEnumFoodType() {
 		return enumFoodType;

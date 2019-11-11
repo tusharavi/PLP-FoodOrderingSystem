@@ -1,6 +1,10 @@
 package com.cg.foodos.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +12,7 @@ import com.cg.foodos.dto.Restaurant;
 import com.cg.foodos.repository.RestaurantRepository;
 
 @Service("restaurantService")
+@Transactional
 public class RestaurantServiceImpl implements RestaurantService {
 	
 	@Autowired
@@ -19,8 +24,8 @@ public class RestaurantServiceImpl implements RestaurantService {
      * @return
      */
     public Restaurant save(Restaurant restaurant) {
-        
-        return null;
+        restaurantRepository.save(restaurant);
+        return restaurantRepository.getOne(restaurant.getRestaurantId());
     }
 
     /**
@@ -28,23 +33,23 @@ public class RestaurantServiceImpl implements RestaurantService {
      */
     public List<Restaurant> findAll() {
         
-        return null;
+        return restaurantRepository.findAll();
     }
 
     /**
      * @param restaurant
      */
     public void delete(Restaurant restaurant) {
-        
+    	restaurantRepository.delete(restaurant);
     }
 
     /**
      * @param restaurantId 
      * @return
      */
-    public Restaurant findById(Integer restaurantId) {
+    public Optional<Restaurant> findById(Integer restaurantId) {
         
-        return null;
+        return restaurantRepository.findById(restaurantId);
     }
 
 	@Override

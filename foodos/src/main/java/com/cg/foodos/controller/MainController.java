@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.foodos.dto.Account;
+import com.cg.foodos.dto.EnumFoodType;
 import com.cg.foodos.dto.Food;
 import com.cg.foodos.dto.Restaurant;
 import com.cg.foodos.dto.User;
@@ -47,22 +48,9 @@ public class MainController {
 	* Output: 
 	*
 	*/
-	
-	@GetMapping(value = "/login")
-	public  ResponseEntity<User> logIn(@RequestParam("username") String username, @RequestParam("password") String password) {
-		User user = userService.findByUsernameAndPassword(username, password);
-		if(user!=null) {
-			return new ResponseEntity<User>(user, HttpStatus.FOUND);
-		}
-		else {
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-		}
-	}
-	@PostMapping(value = "/sign-up")
-	public ResponseEntity<User> signUp(@RequestBody User user) {
-		user.setRole("ROLE_CUSTOMER");
-		userService.save(user);
-		return new ResponseEntity<User>(user, HttpStatus.FOUND);
+	@GetMapping(value = "/error") 
+	public String errorPage() {
+		return "!!!page not found!!!";
 	}
 	
 	/*
@@ -76,16 +64,6 @@ public class MainController {
 	@GetMapping(value = "/user-getall")
 	public  ResponseEntity<List<User>> getUsers() {
 		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.FOUND);
-	}
-	@PostMapping(value = "/user-add") 
-	public ResponseEntity<List<User>> addUser(@RequestBody User user, BindingResult result) {
-		User userFound = userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-		if(result.hasErrors() || userFound == null) {
-			return new ResponseEntity<List<User>>(HttpStatus.NOT_ACCEPTABLE);
-		}
-		
-		userService.save(user);
-		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
 	}
 	@PutMapping(value = "/user-update/{userId}")
 	public ResponseEntity<List<User>> updateUser(@PathVariable Integer userId, @RequestBody User user) {
@@ -146,9 +124,19 @@ public class MainController {
 		return new ResponseEntity<List<Food>>( foodService.findAll(), HttpStatus.FOUND);
 	}
 	@PostMapping(value = "/food-add")
-	public  ResponseEntity<List<Food>> addFood(@RequestBody Food food, BindingResult result) {
+	public  ResponseEntity<List<Food>> addFood(@RequestBody Food food,
+			@RequestParam Integer foodType, 
+			BindingResult result) {
 			if(result.hasErrors()) {
 				return new ResponseEntity<List<Food>>(HttpStatus.NOT_ACCEPTABLE);
+			}
+			switch(foodType) {
+				case 1:food.setEnumFoodType(EnumFoodType.BEVERAGES); break;
+				case 2:food.setEnumFoodType(EnumFoodType.CONTINENTAL); break;
+				case 3:food.setEnumFoodType(EnumFoodType.NORTH_INDIAN); break;
+				case 4:food.setEnumFoodType(EnumFoodType.SOUTH_INDIAN); break;
+				case 5:food.setEnumFoodType(EnumFoodType.SWEETS); break;
+				default: return new ResponseEntity<List<Food>>(HttpStatus.NOT_ACCEPTABLE);
 			}
 			foodService.save(food);
 		return new ResponseEntity<List<Food>>( foodService.findAll(), HttpStatus.CREATED);
@@ -158,7 +146,7 @@ public class MainController {
 			if(result.hasErrors()) {
 				return new ResponseEntity<List<Food>>(HttpStatus.NOT_ACCEPTABLE);
 			}
-			Food foodFound = foodService.findById(foodId);
+			Food foodFound = foodService.findById(foodId).get();
 			foodFound.setEnumFoodType(food.getEnumFoodType());
 			foodFound.setFoodName(food.getFoodName());
 			foodFound.setVegetarian(food.getVegetarian());
@@ -193,7 +181,7 @@ public class MainController {
 	}
 	@PutMapping(value = "/restaurant-update/{restaruantId}")
 	public  ResponseEntity<List<Restaurant>> updateRestaurant(@PathVariable Integer restaurantId, @RequestBody Restaurant restaurant) {
-		Restaurant restaurantFound = restaurantService.findById(restaurantId);
+		Restaurant restaurantFound = restaurantService.findById(restaurantId).get();
 		restaurantFound.setRestaurantName(restaurant.getRestaurantName());
 		restaurantFound.setAddress(restaurant.getAddress());
 		return new ResponseEntity<List<Restaurant>>( restaurantService.findAll(), HttpStatus.OK);

@@ -3,6 +3,7 @@ package com.cg.foodos.dto;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,9 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -36,8 +37,9 @@ public class FoodOrder {
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
     
-    @OneToMany(mappedBy = "foodOrder")
-    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(joinColumns = @JoinColumn(name = "foodid_fk"), inverseJoinColumns = @JoinColumn(name = "orderid_fk"))
+	@JsonIgnore
     private List<Food> foods;
     
     @ManyToOne

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'signin', component: SignInComponent},
   { path: 'signup', component: SignUpComponent},
   { path: 'show-restaurant', component: ShowRestaurantComponent},
-  { path: 'show-restaurant:id', component: ShowRestaurantFoodComponent},
+  { path: 'show-restaurant-food:id', component: ShowRestaurantFoodComponent},
   { path: '**', component: PageNotFoundComponent},
 
 ];

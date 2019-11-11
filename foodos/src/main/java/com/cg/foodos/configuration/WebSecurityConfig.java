@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -33,14 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		// configure AuthenticationManager so that it knows from where to load
 		// user for matching credentials
+		// Use BCryptPasswordEncoder
 		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 
-	@SuppressWarnings("deprecation")
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+		return new BCryptPasswordEncoder();
 	}
+
 
 	@Bean
 	@Override
@@ -54,7 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// dont authenticate this particular request
 				.authorizeRequests()
 				.antMatchers(
-						"/authenticate", 
+						
+						"/login",
+						"/signup",
+						"/logout",
+						"/error",
+
 						
 						"/order/getall",
 						"/order/add",
@@ -83,13 +89,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/account-getall",
 						"/account-add",
 						"/account-update/{accountId}",
-						"/account-delete/{accountId}",
+						"/account-delete/{accountId}"
 						
-						"/",
-						"/login",
-						"/signup",
-						"/logout"
-
+						
 					).permitAll().
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
