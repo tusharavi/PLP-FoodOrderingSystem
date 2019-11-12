@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FoodModel } from 'src/app/_model/food.model';
 import { FoodService } from 'src/app/_service/food.service';
+import { AuthenticationService } from 'src/app/_service/authentication.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class ShowRestaurantFoodComponent implements OnInit {
   public foods:FoodModel[]=[];
   
   constructor(private activatedRoute:ActivatedRoute,
-    private foodService: FoodService
+    private foodService: FoodService,
+    private authenticationService: AuthenticationService
     ) { }
 
   ngOnInit() {
@@ -26,6 +28,19 @@ export class ShowRestaurantFoodComponent implements OnInit {
     this.foodService.getAllFood().subscribe((foods: FoodModel[]) => {
       this.foods = foods});
     console.log(this.restaurants);
+  }
+  role:any;
+  isAdmin():boolean {
+    this.role = sessionStorage.getItem("roles");
+    if(this.role == "ROLE_ADMIN") {
+      return true;
+    } else {
+      return false;
+    } 
+  }
+
+  isLoggedIn():boolean {
+    return this.authenticationService.isUserLoggedIn();
   }
 
 }

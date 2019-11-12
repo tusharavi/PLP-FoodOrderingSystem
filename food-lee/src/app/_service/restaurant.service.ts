@@ -16,15 +16,15 @@ export class RestaurantService {
   }
   
   getAllRestaurants() {
-    return this.httpClient.get("http://15.206.163.15:9750/restaurant-getall");
+    return this.httpClient.get("http://13.233.160.132:9750/restaurant-getall");
   }
 
   deleteRestaurant(restaurantId:any) {
-    return this.httpClient.delete("http://15.206.163.15:9750/restaurant-delete/"+restaurantId);
+    return this.httpClient.delete("http://13.233.160.132:9750/restaurant-delete/"+restaurantId);
   }
 
   updateRestaurant(restaurantId:any, restaurant:any) {
-    return this.httpClient.put("http://15.206.163.15:9750/restaurant-delete/"+restaurantId, restaurant);
+    return this.httpClient.put("http://13.233.160.132:9750/restaurant-delete/"+restaurantId, restaurant);
   }
 
 }

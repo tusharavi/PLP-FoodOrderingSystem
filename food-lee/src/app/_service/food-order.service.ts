@@ -10,6 +10,6 @@ export class FoodOrderService {
     this.headers = new HttpHeaders().set("Authorization",sessionStorage.getItem("token"));
   }
   getFoodOrder() {
-    return this.httpClient.get("http://15.206.163.15:9750/restaurant-delete/");
+    return this.httpClient.get("http://13.233.160.132:9750/restaurant-delete/");
   }
 }

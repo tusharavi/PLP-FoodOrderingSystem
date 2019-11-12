@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class FoodService {
   getAllFood() {
-    return this.httpClient.get("http://15.206.163.15:9750/food-getall");
+    return this.httpClient.get("http://13.233.160.132:9750/food-getall");
   }
 
   headers:any;
@@ -15,10 +15,10 @@ export class FoodService {
   }
 
   deleteFood(foodId:any) {
-    return this.httpClient.delete("http://15.206.163.15:9750/restaurant-delete/"+foodId);
+    return this.httpClient.delete("http://13.233.160.132:9750/restaurant-delete/"+foodId);
   }
 
   updateFood(foodId:any, food:any) {
-    return this.httpClient.put("http://15.206.163.15:9750/restaurant-delete/"+foodId, food);
+    return this.httpClient.put("http://13.233.160.132:9750/restaurant-delete/"+foodId, food);
   }
 }

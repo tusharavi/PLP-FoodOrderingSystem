@@ -20,6 +20,6 @@ export class RegistrationService {
     myForm.append("telephone",user.telephone);
     myForm.append("email",user.telephone);
 
-    return this.httpClient.post("http://15.206.163.15:9750/signup",{myForm:myForm});
+    return this.httpClient.post("http://13.233.160.132:9750/signup",{myForm:myForm});
   }
 }
