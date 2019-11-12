@@ -43,40 +43,40 @@ public class MainController {
 	/*
 	* Author: 
 	* Description: ***********BASIC***********
-	* Created: October 14, 2019
+	* OK: October 14, 2019
 	* Input: 
 	* Output: 
 	*
 	*/
 	@GetMapping(value = "/error") 
 	public String errorPage() {
-		return "!!!page not found!!!";
+		return "!!!page not OK!!!";
 	}
 	
 	/*
 	* Author: 
 	* Description: ***********User***********
-	* Created: October 14, 2019
+	* OK: October 14, 2019
 	* Input: 
 	* Output: 
 	*
 	*/
 	@GetMapping(value = "/user-getall")
 	public  ResponseEntity<List<User>> getUsers() {
-		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.FOUND);
+		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
 	}
 	@GetMapping(value = "/user/{username}")
 	public  ResponseEntity<User> getOneUser(@PathVariable String username) {
 		System.out.println(username);
-		return new ResponseEntity<User>(userService.findByUsername(username), HttpStatus.FOUND);
+		return new ResponseEntity<User>(userService.findByUsername(username), HttpStatus.OK);
 	}
 	@PutMapping(value = "/user-update/{userId}")
 	public ResponseEntity<List<User>> updateUser(@PathVariable Integer userId, @RequestBody User user) {
-		User userFound = userService.findById(userId);
-		userFound.setEmail(user.getEmail());
-		userFound.setPassword(user.getPassword());
-		userFound.setTelephone(user.getTelephone());
-		userFound.setUsername(user.getUsername());
+		User userOK = userService.findById(userId);
+		userOK.setEmail(user.getEmail());
+		userOK.setPassword(user.getPassword());
+		userOK.setTelephone(user.getTelephone());
+		userOK.setUsername(user.getUsername());
 		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
 	}
 	@DeleteMapping(value = "/user-delete/{userId}")
@@ -88,14 +88,14 @@ public class MainController {
 	/*
 	* Author: 
 	* Description: ***********Account***********
-	* Created: November, 2019
+	* OK: November, 2019
 	* Input: 
 	* Output: 
 	*
 	*/
 	@GetMapping(value = "/account-getall")
 	public  ResponseEntity<List<Account>> getAccounts() {
-		return new ResponseEntity<List<Account>>( accountService.findAll(), HttpStatus.FOUND);
+		return new ResponseEntity<List<Account>>( accountService.findAll(), HttpStatus.OK);
 	}
 	@PostMapping(value = "/account-add") // Page for adding Account to database
 	public ResponseEntity<List<Account>> addAccount(@RequestBody Account account, BindingResult result) {
@@ -119,14 +119,14 @@ public class MainController {
 	/*
 	* Author: 
 	* Description: ***********Food***********
-	* Created: November, 2019
+	* OK: November, 2019
 	* Input: 
 	* Output: 
 	*
 	*/
 	@GetMapping(value = "/food-getall")
 	public  ResponseEntity<List<Food>> getFoods() {
-		return new ResponseEntity<List<Food>>( foodService.findAll(), HttpStatus.FOUND);
+		return new ResponseEntity<List<Food>>( foodService.findAll(), HttpStatus.OK);
 	}
 	@PostMapping(value = "/food-add")
 	public  ResponseEntity<List<Food>> addFood(@RequestBody Food food,
@@ -144,17 +144,17 @@ public class MainController {
 				default: return new ResponseEntity<List<Food>>(HttpStatus.NOT_ACCEPTABLE);
 			}
 			foodService.save(food);
-		return new ResponseEntity<List<Food>>( foodService.findAll(), HttpStatus.CREATED);
+		return new ResponseEntity<List<Food>>( foodService.findAll(), HttpStatus.OK);
 	}
 	@PutMapping(value = "/food-update/{foodId}")
 	public  ResponseEntity<List<Food>> updateFood(@PathVariable Integer foodId, @RequestBody Food food, BindingResult result) {
 			if(result.hasErrors()) {
 				return new ResponseEntity<List<Food>>(HttpStatus.NOT_ACCEPTABLE);
 			}
-			Food foodFound = foodService.findById(foodId).get();
-			foodFound.setEnumFoodType(food.getEnumFoodType());
-			foodFound.setFoodName(food.getFoodName());
-			foodFound.setVegetarian(food.getVegetarian());
+			Food foodOK = foodService.findById(foodId).get();
+			foodOK.setEnumFoodType(food.getEnumFoodType());
+			foodOK.setFoodName(food.getFoodName());
+			foodOK.setVegetarian(food.getVegetarian());
 		return new ResponseEntity<List<Food>>( foodService.findAll(), HttpStatus.OK);
 	}
 	@DeleteMapping(value = "/food-delete/{foodId}")
@@ -166,14 +166,14 @@ public class MainController {
 	/*
 	* Author: 
 	* Description: ***********Restaurant***********
-	* Created: November, 2019
+	* OK: November, 2019
 	* Input: 
 	* Output: 
 	*
 	*/
 	@GetMapping(value = "/restaurant-getall")
 	public  ResponseEntity<List<Restaurant>> getRestaurants() {
-		return new ResponseEntity<List<Restaurant>>( restaurantService.findAll(), HttpStatus.FOUND);
+		return new ResponseEntity<List<Restaurant>>( restaurantService.findAll(), HttpStatus.OK);
 	}
 	@PostMapping(value = "/restaurant-add")
 	public  ResponseEntity<List<Restaurant>> addRestaurants(@RequestBody Restaurant restaurant, BindingResult result) {
@@ -182,13 +182,13 @@ public class MainController {
 		} else {
 			restaurantService.save(restaurant);
 		}
-		return new ResponseEntity<List<Restaurant>>( restaurantService.findAll(), HttpStatus.CREATED);
+		return new ResponseEntity<List<Restaurant>>( restaurantService.findAll(), HttpStatus.OK);
 	}
 	@PutMapping(value = "/restaurant-update/{restaruantId}")
 	public  ResponseEntity<List<Restaurant>> updateRestaurant(@PathVariable Integer restaurantId, @RequestBody Restaurant restaurant) {
-		Restaurant restaurantFound = restaurantService.findById(restaurantId).get();
-		restaurantFound.setRestaurantName(restaurant.getRestaurantName());
-		restaurantFound.setAddress(restaurant.getAddress());
+		Restaurant restaurantOK = restaurantService.findById(restaurantId).get();
+		restaurantOK.setRestaurantName(restaurant.getRestaurantName());
+		restaurantOK.setAddress(restaurant.getAddress());
 		return new ResponseEntity<List<Restaurant>>( restaurantService.findAll(), HttpStatus.OK);
 	}
 	@DeleteMapping(value = "/restaurant-delete/{restaruantId}")

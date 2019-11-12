@@ -21,7 +21,9 @@ export class ShowRestaurantComponent implements OnInit, AfterViewInit {
   
 
   constructor(private router:Router,
-    private restaurantService:RestaurantService ) { }
+    private restaurantService:RestaurantService,
+    
+    ) { }
 
   ngOnInit() {
     this.restaurantService.getAllRestaurants().subscribe((restaurants: RestaurantModel[]) => {

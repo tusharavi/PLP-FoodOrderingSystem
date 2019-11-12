@@ -23,8 +23,8 @@ export class ShowRestaurantFoodComponent implements OnInit {
   ngOnInit() {
     let id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.restaurantId = id;
-    this.foodService.getAllFood(this.restaurantId).subscribe((foods: FoodModel[]) => {
-    this.foods = foods});
+    this.foodService.getAllFood().subscribe((foods: FoodModel[]) => {
+      this.foods = foods});
     console.log(this.restaurants);
   }
 

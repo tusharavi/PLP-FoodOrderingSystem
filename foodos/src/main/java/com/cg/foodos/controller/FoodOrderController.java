@@ -55,7 +55,7 @@ public class FoodOrderController {
 		foods.add(foodService.findById(foodId).get());
 		foodOrder.setFoods(foods );
 		foodOrderService.save(foodOrder);
-		return new ResponseEntity<FoodOrder>(foodOrder, HttpStatus.ACCEPTED);
+		return new ResponseEntity<FoodOrder>(foodOrder, HttpStatus.OK);
 	}
 	@DeleteMapping(value = "/delete/{orderId}")
 	public  ResponseEntity<List<FoodOrder>> updateOrder(@PathVariable Integer accountId) {

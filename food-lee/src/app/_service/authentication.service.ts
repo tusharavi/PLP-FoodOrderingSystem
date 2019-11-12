@@ -12,12 +12,6 @@ export class User {
 @Injectable({
   providedIn: 'root'
 })
-/**
-	 *author: Venkatesh
-	 *Description : This class authenticates the user if a valid JWT token is present  
-	 *created Date: 23/10/2019
-	 *last modified : 23/10/2019            
-	 */
 export class AuthenticationService {
 
   user: any = {}
@@ -50,6 +44,7 @@ export class AuthenticationService {
     this.user = this.httpClient.get("http://15.206.163.15:9750/user/"+username).subscribe(
       (data) => {
         if (data["roles"] === 'ROLE_ADMIN') {
+          sessionStorage.setItem('roles', this.user.admin);
           this.router.navigate(['/admin-home'])
         }
         else {
@@ -59,7 +54,7 @@ export class AuthenticationService {
       })
   }
 
-  isUserLoggedIn() {
+  isUserLoggedIn():boolean {
     let user = sessionStorage.getItem('username')
     console.log(!(user === null))
     return !(user === null)

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ShowRestaurantComponent } from './show-restaurant/show-restaurant.component';
 import { FoodModule } from '../food/food.module';
 import { MaterialModule } from '../_material/material.module';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 
@@ -11,7 +12,8 @@ import { MaterialModule } from '../_material/material.module';
   imports: [
     CommonModule,
     FoodModule,
-    MaterialModule
+    MaterialModule,
+    AppRoutingModule,
   ],
   exports: [
     ShowRestaurantComponent,

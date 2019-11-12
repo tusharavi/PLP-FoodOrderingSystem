@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'admin-home', component: AdminHomeComponent },
   { path: 'user-home', component: UserHomeComponent },
   { path: 'show-restaurant', component: ShowRestaurantComponent},
-  { path: 'show-restaurant-food:id', component: ShowRestaurantFoodComponent},
+  { path: 'show-food', component: ShowRestaurantFoodComponent},
   { path: 'logout', redirectTo:'/show-restaurant', pathMatch:'full'},
   { path: '**', component: PageNotFoundComponent},
 

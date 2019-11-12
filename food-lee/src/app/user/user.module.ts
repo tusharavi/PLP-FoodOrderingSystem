@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { UserHomeComponent } from './user-home/user-home.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 
@@ -22,7 +23,8 @@ import { UserHomeComponent } from './user-home/user-home.component';
     CommonModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   exports: [
     SignInComponent, 

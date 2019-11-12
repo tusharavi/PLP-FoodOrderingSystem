@@ -19,6 +19,7 @@ export class SignInComponent implements OnInit {
   isLinear: boolean = true;
   isEditable: boolean = true;
   invalidLogin: boolean = true;
+  hide:boolean = true;
   user:any;
   role:any;
 

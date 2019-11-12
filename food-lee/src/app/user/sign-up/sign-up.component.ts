@@ -20,7 +20,7 @@ export class SignUpComponent implements OnInit {
   isLinear = true;
   isEditable = false;
   hide = true;
-  user: UserModel[] = [];
+  user: any = {};
   registrationStatus:string='';
 
 
@@ -53,13 +53,7 @@ export class SignUpComponent implements OnInit {
   }
   registerUser(): any {
     console.log(this.user);
-    this.service.registerUser(this.user).subscribe((body) => console.log("ssssss"),
-      error => {
-      this.registrationStatus = error.error
-        alert(error.error);
-        this.router.navigate(['/login']);
-
-      });
+    this.service.registerUser(this.user);
   }
 
 }
