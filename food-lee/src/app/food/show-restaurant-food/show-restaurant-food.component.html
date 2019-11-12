@@ -1,9 +1,11 @@
+
 <mat-grid-list cols="4" rowHeight="100px">
     <mat-grid-tile
-        *ngFor="let tile of tiles"
-        [colspan]="tile.cols"
-        [rowspan]="tile.rows"
-        [style.background]="tile.color">
-        {{tile.text}}
+        colspan="2"
+        rowspan="2"
+        style.background="red"
+        *ngFor="let food of foods"
+        > 
+        {{food.foodName}}
     </mat-grid-tile>
 </mat-grid-list>

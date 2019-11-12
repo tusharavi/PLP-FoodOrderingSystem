@@ -19,7 +19,7 @@ public class FoodOrderServiceImpl implements FoodOrderService{
 	/**
      * @param foodOrder
      */
-    public boolean save(FoodOrder foodOrder, Integer foodId, Integer accountId) {
+    public boolean save(FoodOrder foodOrder) {
         foodOrderRepository.save(foodOrder);
         return true;
     }

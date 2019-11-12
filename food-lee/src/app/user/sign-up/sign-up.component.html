@@ -19,7 +19,7 @@
                 <ng-template matStepLabel>Enter Your Password</ng-template>
                 <mat-form-field>
                     <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
-                    [(ngModel)]="password" formControlName="passwordFormControl" required>
+                    [(ngModel)]="user.password" formControlName="passwordFormControl" required>
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -36,7 +36,7 @@
             <form [formGroup]="emailFormGroup">
                 <ng-template matStepLabel>Enter Your e-mail Address</ng-template>
                 <mat-form-field class="example-full-width">
-                    <input type="email" matInput placeholder="food-lee@food-lee.com" [(ngModel)]="email" formControlName="emailFormControl" required>
+                    <input type="email" matInput placeholder="food-lee@food-lee.com" [(ngModel)]="user.email" formControlName="emailFormControl" required>
                     <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
                 <div>
@@ -51,7 +51,7 @@
                 <ng-template matStepLabel>Enter Your Phone Number</ng-template>
                 <mat-form-field class="example-full-width">
                     <span matPrefix>+91 &nbsp;</span>
-                    <input type="tel" matInput placeholder="Telephone" [(ngModel)]="telephone" formControlName="telephoneFormControl" required>
+                    <input type="tel" matInput placeholder="Telephone" [(ngModel)]="user.telephone" formControlName="telephoneFormControl" required>
                     <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
                 <div>
@@ -65,7 +65,7 @@
             <ng-template matStepLabel>Done</ng-template>
             You are now done.
             <div>
-                <button mat-button matStepperSubmit (click)="openSnackBar(username.value, 'Yay!');stepper.reset()" >Done</button>
+                <button mat-button matStepperSubmit (click)="openSnackBar(username.value, 'Yay!'); registerUser()" >Done</button>
                 <button mat-button (click)="stepper.reset()">Reset</button>
             </div>
         </mat-step>

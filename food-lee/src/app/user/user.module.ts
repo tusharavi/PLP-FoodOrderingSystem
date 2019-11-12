@@ -5,14 +5,18 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { MaterialModule } from '../_material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LogOutComponent } from './log-out/log-out.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { UserHomeComponent } from './user-home/user-home.component';
 
 
 
 @NgModule({
   declarations: [
     SignInComponent, 
-    SignUpComponent, PageNotFoundComponent, LogOutComponent
+    SignUpComponent, 
+    PageNotFoundComponent, 
+     AdminHomeComponent, 
+     UserHomeComponent
   ],
   imports: [
     CommonModule,
@@ -22,8 +26,10 @@ import { LogOutComponent } from './log-out/log-out.component';
   ],
   exports: [
     SignInComponent, 
-    SignUpComponent,
-    PageNotFoundComponent
+    SignUpComponent, 
+    PageNotFoundComponent, 
+     AdminHomeComponent, 
+     UserHomeComponent
   ]
 })
 export class UserModule { }

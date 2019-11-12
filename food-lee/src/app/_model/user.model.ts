@@ -1,6 +1,8 @@
 export interface UserModel{
-    username:string;
-    password:string;
-    telephone:number;
-    email:string;
+    userId:any;
+    username:any;
+    password:any;
+    telephone:any;
+    email:any;
+    roles:any;
 }

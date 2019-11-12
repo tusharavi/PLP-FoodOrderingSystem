@@ -5,6 +5,8 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { PageNotFoundComponent } from './user/page-not-found/page-not-found.component';
 import { ShowRestaurantComponent } from './restaurant/show-restaurant/show-restaurant.component';
 import { ShowRestaurantFoodComponent } from './food/show-restaurant-food/show-restaurant-food.component';
+import { AdminHomeComponent } from './user/admin-home/admin-home.component';
+import { UserHomeComponent } from './user/user-home/user-home.component';
 
 
 const routes: Routes = [
@@ -12,8 +14,11 @@ const routes: Routes = [
   { path: '', redirectTo:'/show-restaurant', pathMatch:'full'}, //pathMatch can't have prefix as url
   { path: 'signin', component: SignInComponent},
   { path: 'signup', component: SignUpComponent},
+  { path: 'admin-home', component: AdminHomeComponent },
+  { path: 'user-home', component: UserHomeComponent },
   { path: 'show-restaurant', component: ShowRestaurantComponent},
   { path: 'show-restaurant-food:id', component: ShowRestaurantFoodComponent},
+  { path: 'logout', redirectTo:'/show-restaurant', pathMatch:'full'},
   { path: '**', component: PageNotFoundComponent},
 
 ];

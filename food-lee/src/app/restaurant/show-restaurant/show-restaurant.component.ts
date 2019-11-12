@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestaurantModel } from 'src/app/_model/restaurant.model';
+import { RestaurantService } from 'src/app/_service/restaurant.service';
 
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
 
 @Component({
   selector: 'app-show-restaurant',
@@ -17,22 +12,26 @@ export interface Tile {
 
 
 
-export class ShowRestaurantComponent implements OnInit {
-  restaurant:RestaurantModel;
-  tiles: Tile[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ];
+export class ShowRestaurantComponent implements OnInit, AfterViewInit {
+  restaurants:any = {};
 
-  constructor(private router:Router) { }
+  ngAfterViewInit(): void {
+   
+  }
+  
+
+  constructor(private router:Router,
+    private restaurantService:RestaurantService ) { }
 
   ngOnInit() {
+    this.restaurantService.getAllRestaurants().subscribe((response: any) => {
+      this.restaurants = response});
+    console.log(this.restaurants);
   }
 
   onSelect(restaurant) {
     this.router.navigate(['/show-restaurant',restaurant.restaurantId]);
   }
+  
 
 }

@@ -17,4 +17,7 @@ import { MaterialModule } from '../_material/material.module';
     ShowRestaurantComponent,
   ]
 })
-export class RestaurantModule { }
+export class RestaurantModule {
+  
+
+ }

@@ -1,0 +1,5 @@
+INSERT INTO `account_addresses` (`account_account_id`, `address_line_one`, `name`, `pin_code`, `state`, `telephone`) VALUES (1, 'AKR', 'Ravi Pandey', 400059, 'Maharashtra', 9431092170.00);
+INSERT INTO `account_addresses` (`account_account_id`, `address_line_one`, `name`, `pin_code`, `state`, `telephone`) VALUES (1, 'Mankar Road', 'Akash', 713403, 'West Bengal', 9091603883.00);
+INSERT INTO `account_addresses` (`account_account_id`, `address_line_one`, `name`, `pin_code`, `state`, `telephone`) VALUES (2, 'Rajkamal Hilltop Chs', 'Tushar Pandey', 400059, 'Maharashtra', 8084411122.00);
+INSERT INTO `account_addresses` (`account_account_id`, `address_line_one`, `name`, `pin_code`, `state`, `telephone`) VALUES (1, 'Sukdal More', 'Kuber', 713043, 'West Bengal', 9547263972.00);
+INSERT INTO `account_addresses` (`account_account_id`, `address_line_one`, `name`, `pin_code`, `state`, `telephone`) VALUES (2, 'Wolfenden Hall', 'Tushar Kumar', 711103, 'West Bengal', 9732010610.00);accountaccount

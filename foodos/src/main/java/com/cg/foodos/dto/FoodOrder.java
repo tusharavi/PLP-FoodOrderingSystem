@@ -16,34 +16,40 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * 
  */
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FoodOrder {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer orderId;
-
+    
+    private Integer totalCost;
  
     @Enumerated(EnumType.STRING)
     private EnumOrderStatus enumOrderStatus;
 
     @Embedded
+    @JsonIgnore
     private Address address;
 
     @ManyToOne
     @JoinColumn(name = "ACCOUNT_ID")
+    @JsonIgnore
     private Account account;
     
     @ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(joinColumns = @JoinColumn(name = "foodid_fk"), inverseJoinColumns = @JoinColumn(name = "orderid_fk"))
-	@JsonIgnore
+    @JsonIgnore
     private List<Food> foods;
     
     @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
+    @JsonIgnore
     private Restaurant restaurant;
     
     /**
@@ -112,7 +118,7 @@ public class FoodOrder {
 		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -135,6 +141,15 @@ public class FoodOrder {
 		} else if (!orderId.equals(other.orderId))
 			return false;
 		return true;
+	}
+	
+
+	public Integer getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(Integer totalCost) {
+		this.totalCost = totalCost;
 	}
 
 	@Override

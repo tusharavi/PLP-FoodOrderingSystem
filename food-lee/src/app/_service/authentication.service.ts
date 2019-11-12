@@ -1,19 +1,62 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+
+export class User {
+  constructor(
+    public status: string,
+  ) { }
+
+}
 
 @Injectable({
   providedIn: 'root'
 })
+/**
+	 *author: Venkatesh
+	 *Description : This class authenticates the user if a valid JWT token is present  
+	 *created Date: 23/10/2019
+	 *last modified : 23/10/2019            
+	 */
 export class AuthenticationService {
 
-  constructor() { }
+  user: any = {}
+  role: string
 
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router
+  ) { }
+  //this function gets the username and passord from component and connects 
+  //to the database for if credentials are valid then JWT token is retreived.
   authenticate(username, password) {
-    if (username === "javainuse" && password === "password") {
-      sessionStorage.setItem('username', username)
-      return true;
-    } else {
-      return false;
-    }
+    return this.httpClient.post<any>('http://15.206.163.15:9750/login', { username, password }).subscribe
+      (
+        (data) => {
+          sessionStorage.setItem('username', username);
+          let tokenStr = 'Bearer ' + data.token;
+          alert(tokenStr);
+          sessionStorage.setItem('token', tokenStr);
+          this.user = data;
+          return data;
+        }, (error) => {
+          this.router.navigate(['login'])
+        }
+      )
+
+  }
+  getDbUser(username): any {
+    // this.user = this.httpClient.get("http://15.206.163.15:9750/getUser?loginName=" + loginName).subscribe(
+    this.user = this.httpClient.get("http://15.206.163.15:9750/user/"+username).subscribe(
+      (data) => {
+        if (data["roles"] == 'ROLE_ADMIN') {
+          this.router.navigate(['/admin-home'])
+        }
+        else {
+          console.log(data);
+          this.router.navigate(['/user-home'])
+        }
+      })
   }
 
   isUserLoggedIn() {
@@ -23,6 +66,14 @@ export class AuthenticationService {
   }
 
   logOut() {
-    sessionStorage.removeItem('username')
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('userRole');
+    sessionStorage.removeItem('userName');
   }
+  getUserRole() {
+    return this.role;
+  }
+
 }

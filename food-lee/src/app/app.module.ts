@@ -12,7 +12,7 @@ import { FoodOrderModule } from './food-order/food-order.module';
 import { AccountModule } from './account/account.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { FoodModule } from './food/food.module';
-import { LogOutComponent } from './user/log-out/log-out.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,7 @@ import { LogOutComponent } from './user/log-out/log-out.component';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    HttpClientModule,
     
     UserModule,
     FoodOrderModule,

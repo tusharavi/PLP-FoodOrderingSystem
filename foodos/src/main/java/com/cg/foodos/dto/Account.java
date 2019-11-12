@@ -26,12 +26,14 @@ public class Account {
     private Integer accountId;
 
     @ElementCollection
+    @JsonIgnore
     private List<Address> addresses;
     
     @OneToMany(mappedBy = "account")
-	@JsonIgnore
+    @JsonIgnore
     private List<FoodOrder> foodOrders;
     @OneToOne(mappedBy = "account")
+    @JsonIgnore
     private User user;
     
     

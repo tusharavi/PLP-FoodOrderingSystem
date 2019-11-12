@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  */
@@ -28,15 +30,17 @@ public class Food {
     private String foodName;
     
     private Boolean vegetarian;
+    
+    private Integer foodPrice;
 
-    @Enumerated(EnumType.STRING)
-    private EnumFoodType enumFoodType;
     
     @ManyToMany(mappedBy = "foods", cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<FoodOrder> foodOrders;
     
     @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
+    @JsonIgnore
     private Restaurant restaurant;
 
     /**
@@ -86,6 +90,20 @@ public class Food {
 	public void setVegetarian(Boolean vegetarian) {
 		this.vegetarian = vegetarian;
 	}
+    public Integer getFoodPrice() {
+		return foodPrice;
+	}
+	public void setFoodPrice(Integer foodPrice) {
+		this.foodPrice = foodPrice;
+	}
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+	@Enumerated(EnumType.STRING)
+    private EnumFoodType enumFoodType;
 	@Override
 	public int hashCode() {
 		final int prime = 31;

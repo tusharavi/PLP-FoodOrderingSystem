@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.foodos.dto.Account;
+import com.cg.foodos.dto.Address;
 import com.cg.foodos.dto.EnumFoodType;
 import com.cg.foodos.dto.Food;
 import com.cg.foodos.dto.Restaurant;
@@ -39,7 +40,6 @@ public class MainController {
 	FoodService foodService;
 	@Autowired
 	RestaurantService restaurantService;
-	
 	/*
 	* Author: 
 	* Description: ***********BASIC***********
@@ -64,6 +64,11 @@ public class MainController {
 	@GetMapping(value = "/user-getall")
 	public  ResponseEntity<List<User>> getUsers() {
 		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.FOUND);
+	}
+	@GetMapping(value = "/user/{username}")
+	public  ResponseEntity<User> getOneUser(@PathVariable String username) {
+		System.out.println(username);
+		return new ResponseEntity<User>(userService.findByUsername(username), HttpStatus.FOUND);
 	}
 	@PutMapping(value = "/user-update/{userId}")
 	public ResponseEntity<List<User>> updateUser(@PathVariable Integer userId, @RequestBody User user) {

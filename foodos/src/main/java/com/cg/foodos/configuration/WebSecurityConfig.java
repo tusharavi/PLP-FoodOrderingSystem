@@ -85,6 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/user-add",
 						"/user-delete/{userId}",
 						"/user-update/{userId}",
+						"/user/{username}",
 						
 						"/account-getall",
 						"/account-add",

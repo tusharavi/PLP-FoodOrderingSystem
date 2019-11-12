@@ -6,7 +6,7 @@
                 <ng-template matStepLabel>Username</ng-template>
                 <mat-form-field>
                     <input matInput placeholder="your username" formControlName="usernameFormControl" [(ngModel)]="username"
-                        required>
+                       required>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperNext color="primary">Next</button>
@@ -27,7 +27,7 @@
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious color="primary">Back</button>
-                    <button mat-button matStepperNext color="primary">Login</button>
+                    <button mat-button matStepperNext color="primary" (click)="authenticate()">Login</button>
                 </div>
             </form>
         </mat-step>

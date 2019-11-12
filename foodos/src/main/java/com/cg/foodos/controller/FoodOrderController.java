@@ -1,5 +1,6 @@
 package com.cg.foodos.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.foodos.dto.Food;
 import com.cg.foodos.dto.FoodOrder;
 import com.cg.foodos.service.AccountService;
 import com.cg.foodos.service.FoodOrderService;
@@ -37,6 +39,7 @@ public class FoodOrderController {
 	RestaurantService restaurantService;
 	@Autowired
 	UserService userService;
+
 	
 	@PostMapping(value = "/add")
 	public  ResponseEntity<FoodOrder> placeOrder(@RequestBody FoodOrder foodOrder, 
@@ -46,7 +49,12 @@ public class FoodOrderController {
 		if(result.hasErrors()) {
 			return new ResponseEntity<FoodOrder>(HttpStatus.NOT_ACCEPTABLE);
 		}
-		foodOrderService.save(foodOrder, accountId, foodId);
+		foodOrder.setAccount(accountService.findById(accountId));
+		
+		List<Food> foods = new ArrayList<Food>();
+		foods.add(foodService.findById(foodId).get());
+		foodOrder.setFoods(foods );
+		foodOrderService.save(foodOrder);
 		return new ResponseEntity<FoodOrder>(foodOrder, HttpStatus.ACCEPTED);
 	}
 	@DeleteMapping(value = "/delete/{orderId}")

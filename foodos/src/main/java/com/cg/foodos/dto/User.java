@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  */
@@ -40,6 +42,7 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "ACCOUNT_ID")
+    @JsonIgnore
     private Account account;
 
     
