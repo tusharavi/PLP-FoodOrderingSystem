@@ -13,7 +13,7 @@ import { RestaurantService } from 'src/app/_service/restaurant.service';
 
 
 export class ShowRestaurantComponent implements OnInit, AfterViewInit {
-  restaurants:any = {};
+  restaurants:RestaurantModel[] = [];
 
   ngAfterViewInit(): void {
    
@@ -24,8 +24,8 @@ export class ShowRestaurantComponent implements OnInit, AfterViewInit {
     private restaurantService:RestaurantService ) { }
 
   ngOnInit() {
-    this.restaurantService.getAllRestaurants().subscribe((response: any) => {
-      this.restaurants = response});
+    this.restaurantService.getAllRestaurants().subscribe((restaurants: RestaurantModel[]) => {
+      this.restaurants = restaurants});
     console.log(this.restaurants);
   }
 

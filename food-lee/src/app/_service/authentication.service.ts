@@ -49,7 +49,7 @@ export class AuthenticationService {
     // this.user = this.httpClient.get("http://15.206.163.15:9750/getUser?loginName=" + loginName).subscribe(
     this.user = this.httpClient.get("http://15.206.163.15:9750/user/"+username).subscribe(
       (data) => {
-        if (data["roles"] == 'ROLE_ADMIN') {
+        if (data["roles"] === 'ROLE_ADMIN') {
           this.router.navigate(['/admin-home'])
         }
         else {
